@@ -1,0 +1,12 @@
+from tkinter import *
+top = Tk()
+top.geometry("500x400")
+l1 = Label(text="enter the video link here")
+t1 = Entry() 
+b1 = Button(text="download now")   
+l2 = Label()
+l1.pack()
+t1.pack()
+b1.pack()
+l2.pack()
+top.mainloop()
