@@ -1,36 +1,29 @@
-from pytube import YouTube
+import yt_dlp
 import tkinter as tk
 from tkinter import filedialog
 
 def download_video(url, save_path):
     try:
-        yt = YouTube(url)
-        streams = yt.streams.filter(progressive=True, file_extension="mp4")
-        highest_res_stream = streams.get_highest_resolution()
-        highest_res_stream.download(output_path=save_path)
+        ydl_opts = {
+            'format': 'bestvideo+bestaudio/best',  # Download the best available quality
+            'outtmpl': f'{save_path}/%(title)s.%(ext)s',  # Save file as title.extension
+        }
+        
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+        
         print("Video downloaded successfully!")
     except Exception as e:
         print(e)
 
+# Define your video URL and save path
 url = "https://www.youtube.com/watch?v=ydOZ5YAv8Hk"
 save_path = r"C:\Users\Dev-RBQ\Desktop\PYTHON MEDIUM PROJECTS\python medium project 12"
 
 download_video(url, save_path)
 
-def download_video(url, save_path):
-    try:
-        yt= YouTube(url)
-        streams = yt.streams.filter(progressive=True , file_extension="mp4")
-        highest_res_stream = streams.get_highest_resolution()
-        highest_res_stream.download(output_path=save_path) #fast_yt=False
-        print("video downloaded sucessfully!")
-
-    except Exception as e:
-        print(e)
-
-
-
+# Optional: another video URL and save path example
 url = "https://youtu.be/vQ2L4qcOXVI?si=nG3GFJnTYqjl5QAp"
 save_path = r"C:\Users\Dev-RBQ\Desktop\PYTHON MEDIUM PROJECTS\python medium project 12"
 
-download_video (url , save_path)
+download_video(url, save_path)
